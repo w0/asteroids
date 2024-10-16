@@ -42,6 +42,11 @@ def main():
                 print("Game Over!")
                 sys.exit(0)
 
+            for bullet in shots:
+                if object.collision(bullet):
+                    object.kill()
+                    bullet.kill()
+
         screen.fill("black")
 
         for object in drawable:
