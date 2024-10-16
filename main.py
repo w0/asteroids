@@ -1,10 +1,15 @@
 import pygame
+import sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 
 def main():
+    print("Starting asteroids!")
+    print("Screen width:", SCREEN_WIDTH)
+    print("Screen height:", SCREEN_HEIGHT)
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     game_clock = pygame.time.Clock()
@@ -28,6 +33,11 @@ def main():
         for object in updatable:
             object.update(dt)
 
+        for object in asteroids:
+            if object.collision(player):
+                print("Game Over!")
+                sys.exit(0)
+
         screen.fill("black")
 
         for object in drawable:
@@ -38,10 +48,6 @@ def main():
         # limit the framerate to 60fps
         dt = game_clock.tick(60) / 1000
 
-
-    print("Starting asteroids!")
-    print("Screen width:", SCREEN_WIDTH)
-    print("Screen height:", SCREEN_HEIGHT)
 
 if __name__ == "__main__":
     main()
